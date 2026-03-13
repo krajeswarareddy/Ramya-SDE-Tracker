@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ramya K — SDE Placement War Room 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060911;--surface:#0d1117;--card:#111827;--card2:#161d2b;
+  --purple:#7c3aed;--purple-l:#a855f7;--pink:#ec4899;--pink-l:#f472b6;
+  --green:#10b981;--green-l:#34d399;--yellow:#f59e0b;--yellow-l:#fbbf24;
+  --red:#ef4444;--blue:#3b82f6;--blue-l:#60a5fa;
+  --white:#f0f6fc;--grey:#8b949e;--muted:#4a5568;
+  --border:#1f2937;--border2:#2d3748;
+  --font-display:'Syne',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-body:'Space Mono',monospace;
+  --glow-purple:0 0 40px rgba(124,58,237,0.35);
+  --glow-pink:0 0 40px rgba(236,72,153,0.3);
+  --glow-green:0 0 40px rgba(16,185,129,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:var(--font-body);font-size:13px;line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.4;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(6,9,17,0.85);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+}
+.nav-logo{
+  font-family:var(--font-display);font-weight:800;font-size:1.1rem;
+  background:linear-gradient(135deg,var(--purple-l),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-0.5px;
+}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{
+  color:var(--grey);text-decoration:none;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;transition:color .2s;font-family:var(--font-mono);
+}
+.nav-links a:hover{color:var(--purple-l)}
+.nav-badge{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;font-size:10px;padding:4px 12px;border-radius:20px;
+  font-family:var(--font-mono);font-weight:600;letter-spacing:.5px;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  position:relative;padding:6rem 2rem 4rem;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(124,58,237,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(124,58,237,0.06) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;
+}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.2),transparent);top:-100px;left:-100px;}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(236,72,153,0.15),transparent);bottom:-50px;right:-100px;}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(16,185,129,0.12),transparent);top:50%;left:50%;transform:translate(-50%,-50%);}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);
+  color:var(--purple-l);padding:6px 16px;border-radius:20px;
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  font-family:var(--font-mono);margin-bottom:2rem;
+  animation:fadeDown .6s ease both;
+}
+.hero-tag::before{content:'⚡';font-size:12px}
+.hero-name{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(3rem,8vw,7rem);line-height:.95;
+  letter-spacing:-3px;margin-bottom:1rem;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero-name span{
+  background:linear-gradient(135deg,var(--purple-l) 0%,var(--pink) 50%,var(--yellow-l) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-family:var(--font-display);font-weight:600;font-size:1.3rem;
+  color:var(--grey);letter-spacing:-.5px;margin-bottom:2rem;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-sub span{color:var(--green-l)}
+.hero-stats{
+  display:flex;gap:2rem;margin:2rem 0;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .7s .3s ease both;
+}
+.h-stat{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(255,255,255,.04);border:1px solid var(--border2);
+  padding:1rem 1.5rem;border-radius:12px;min-width:110px;
+  transition:transform .2s,border-color .2s;
+}
+.h-stat:hover{transform:translateY(-4px);border-color:var(--purple)}
+.h-stat-val{
+  font-family:var(--font-display);font-size:1.8rem;font-weight:800;
+  line-height:1;
+}
+.h-stat-label{font-size:10px;color:var(--grey);letter-spacing:1px;margin-top:4px;text-transform:uppercase}
+.hero-cta{
+  display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .7s .4s ease both;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;border:none;padding:12px 28px;border-radius:8px;
+  font-family:var(--font-mono);font-size:12px;cursor:pointer;
+  text-decoration:none;letter-spacing:.5px;font-weight:600;
+  transition:opacity .2s,transform .2s;display:inline-block;
+}
+.btn-primary:hover{opacity:.85;transform:translateY(-2px)}
+.btn-ghost{
+  background:transparent;color:var(--purple-l);
+  border:1px solid rgba(124,58,237,0.4);
+  padding:12px 28px;border-radius:8px;
+  font-family:var(--font-mono);font-size:12px;cursor:pointer;
+  text-decoration:none;letter-spacing:.5px;font-weight:600;
+  transition:all .2s;display:inline-block;
+}
+.btn-ghost:hover{background:rgba(124,58,237,.1);border-color:var(--purple-l)}
+
+/* ── SECTION LAYOUT ── */
+section{
+  position:relative;z-index:1;
+  padding:5rem 2rem;max-width:1200px;margin:0 auto;
+}
+.section-label{
+  font-family:var(--font-mono);font-size:11px;color:var(--purple-l);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:.75rem;
+  display:flex;align-items:center;gap:8px;
+}
+.section-label::before{content:'';display:block;width:24px;height:1px;background:var(--purple)}
+.section-title{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-1.5px;
+  line-height:1;margin-bottom:3rem;
+}
+.accent{color:var(--purple-l)}
+.accent-pink{color:var(--pink-l)}
+.accent-green{color:var(--green-l)}
+.accent-yellow{color:var(--yellow-l)}
+
+/* ── DIVIDER ── */
+.divider{
+  max-width:1200px;margin:0 auto;
+  border:none;border-top:1px solid var(--border);
+}
+
+/* ── SCORE CARDS ── */
+.score-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;
+}
+.score-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:1.5rem;position:relative;overflow:hidden;
+  transition:transform .25s,border-color .25s;
+}
+.score-card:hover{transform:translateY(-4px)}
+.score-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.sc-purple::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.sc-green::before{background:linear-gradient(90deg,var(--green),var(--blue))}
+.sc-yellow::before{background:var(--yellow)}
+.sc-pink::before{background:linear-gradient(90deg,var(--pink),var(--purple-l))}
+.sc-red::before{background:var(--red)}
+
+.score-card:hover.sc-purple{border-color:var(--purple);box-shadow:var(--glow-purple)}
+.score-card:hover.sc-green{border-color:var(--green);box-shadow:var(--glow-green)}
+.score-card:hover.sc-yellow{border-color:var(--yellow)}
+.score-card:hover.sc-pink{border-color:var(--pink);box-shadow:var(--glow-pink)}
+
+.sc-icon{font-size:1.8rem;margin-bottom:.75rem}
+.sc-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:.25rem;font-family:var(--font-mono)}
+.sc-score{font-family:var(--font-display);font-size:3rem;font-weight:800;line-height:1;margin-bottom:.5rem}
+.sc-out-of{font-size:.9rem;color:var(--grey);font-family:var(--font-mono)}
+.sc-verdict{font-size:11px;color:var(--grey);margin-top:.75rem;line-height:1.6}
+.sc-items{list-style:none;margin-top:1rem}
+.sc-items li{
+  font-size:11px;padding:4px 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:6px;color:var(--grey);
+}
+.sc-items li:last-child{border:none}
+.sc-items li span{flex:1}
+.tag-bad{color:var(--red);font-size:10px}
+.tag-good{color:var(--green);font-size:10px}
+.tag-warn{color:var(--yellow);font-size:10px}
+
+/* ── GAP ANALYSIS ── */
+.gap-table{width:100%;border-collapse:collapse;margin-top:1.5rem}
+.gap-table th{
+  background:var(--card2);color:var(--grey);
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  padding:10px 16px;text-align:left;font-family:var(--font-mono);
+  border-bottom:2px solid var(--purple);
+}
+.gap-table td{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  font-size:12px;vertical-align:middle;
+}
+.gap-table tr:last-child td{border:none}
+.gap-table tr:hover td{background:rgba(124,58,237,.05)}
+.pill{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:10px;font-family:var(--font-mono);font-weight:600;letter-spacing:.5px;
+}
+.pill-red{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.pill-green{background:rgba(16,185,129,.15);color:var(--green-l);border:1px solid rgba(16,185,129,.3)}
+.pill-yellow{background:rgba(245,158,11,.15);color:var(--yellow-l);border:1px solid rgba(245,158,11,.3)}
+.pill-purple{background:rgba(124,58,237,.15);color:var(--purple-l);border:1px solid rgba(124,58,237,.3)}
+.pill-blue{background:rgba(59,130,246,.15);color:var(--blue-l);border:1px solid rgba(59,130,246,.3)}
+
+/* ── COMPANY TIERS ── */
+.tier-section{margin-bottom:3rem}
+.tier-header{
+  display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;
+  padding-bottom:.75rem;border-bottom:1px solid var(--border2);
+}
+.tier-badge{
+  font-family:var(--font-display);font-size:2rem;font-weight:800;
+}
+.tier-info{flex:1}
+.tier-info h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700}
+.tier-info p{font-size:11px;color:var(--grey)}
+.tier-salary{
+  font-family:var(--font-mono);font-size:1rem;font-weight:600;
+}
+.company-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;
+}
+.company-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:12px;
+  padding:1rem;transition:all .2s;cursor:default;
+}
+.company-card:hover{transform:translateY(-3px);border-color:var(--purple)}
+.company-name{font-family:var(--font-display);font-size:.9rem;font-weight:700;margin-bottom:.25rem}
+.company-meta{font-size:10px;color:var(--grey);font-family:var(--font-mono)}
+.company-salary{font-size:11px;font-weight:600;margin-top:.5rem;font-family:var(--font-mono)}
+
+/* ── MONTHLY ROADMAP ── */
+.roadmap{display:flex;flex-direction:column;gap:0;position:relative}
+.roadmap::before{
+  content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--purple),var(--pink),var(--green));
+}
+.month-card{
+  display:flex;gap:2rem;margin-bottom:2rem;position:relative;
+}
+.month-dot{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:800;font-size:.85rem;
+  flex-shrink:0;position:relative;z-index:1;
+  border:2px solid;
+}
+.month-body{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:1.5rem;flex:1;transition:border-color .2s;
+}
+.month-card:hover .month-body{border-color:var(--purple)}
+.month-title{
+  font-family:var(--font-display);font-size:1.2rem;font-weight:800;
+  margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;
+}
+.month-dates{font-size:11px;color:var(--grey);font-family:var(--font-mono);margin-bottom:1rem}
+.month-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem}
+.month-col h4{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:.5rem;font-family:var(--font-mono)}
+.month-col ul{list-style:none}
+.month-col ul li{
+  font-size:11px;padding:3px 0;color:var(--white);
+  display:flex;align-items:flex-start;gap:6px;line-height:1.5;
+}
+.month-col ul li::before{content:'→';color:var(--purple-l);flex-shrink:0}
+.month-target{
+  margin-top:1rem;padding:.75rem;
+  background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);
+  border-radius:8px;font-size:11px;font-family:var(--font-mono);
+  display:flex;align-items:center;gap:8px;
+}
+
+/* ── DAILY SCHEDULE ── */
+.schedule-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+}
+@media(max-width:700px){.schedule-grid{grid-template-columns:1fr}}
+.schedule-block{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;
+}
+.schedule-header{
+  padding:1rem 1.5rem;font-family:var(--font-display);font-weight:700;
+  font-size:1rem;display:flex;align-items:center;gap:8px;
+}
+.schedule-header.weekday{background:linear-gradient(135deg,var(--purple),rgba(124,58,237,.3))}
+.schedule-header.weekend{background:linear-gradient(135deg,var(--pink),rgba(236,72,153,.3))}
+.time-block{
+  display:flex;align-items:center;gap:1rem;
+  padding:.75rem 1.5rem;border-bottom:1px solid var(--border);
+  transition:background .2s;
+}
+.time-block:hover{background:rgba(124,58,237,.06)}
+.time-block:last-child{border:none}
+.time-label{
+  font-family:var(--font-mono);font-size:10px;color:var(--grey);
+  min-width:90px;white-space:nowrap;
+}
+.time-desc{font-size:11px;color:var(--white);flex:1}
+.time-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+
+/* ── PROJECT CARDS ── */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+.project-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  overflow:hidden;transition:all .25s;
+}
+.project-card:hover{transform:translateY(-5px);border-color:var(--green);box-shadow:var(--glow-green)}
+.project-header{
+  padding:1.25rem 1.5rem;
+  background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.03));
+  border-bottom:1px solid var(--border2);
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.project-title{font-family:var(--font-display);font-size:1rem;font-weight:700}
+.project-urgency{
+  font-size:10px;font-family:var(--font-mono);
+  padding:3px 8px;border-radius:6px;font-weight:600;
+}
+.urgency-now{background:rgba(239,68,68,.2);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.urgency-planned{background:rgba(245,158,11,.2);color:var(--yellow-l);border:1px solid rgba(245,158,11,.3)}
+.urgency-future{background:rgba(59,130,246,.2);color:var(--blue-l);border:1px solid rgba(59,130,246,.3)}
+.project-body{padding:1.25rem 1.5rem}
+.project-desc{font-size:11px;color:var(--grey);margin-bottom:1rem;line-height:1.7}
+.tech-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.tech-tag{
+  background:rgba(124,58,237,.12);color:var(--purple-l);
+  font-size:10px;font-family:var(--font-mono);
+  padding:3px 8px;border-radius:6px;border:1px solid rgba(124,58,237,.2);
+}
+.project-steps{list-style:none}
+.project-steps li{
+  font-size:11px;padding:4px 0;color:var(--grey);
+  display:flex;gap:8px;align-items:flex-start;
+  border-bottom:1px solid var(--border);
+}
+.project-steps li:last-child{border:none}
+.step-num{
+  width:18px;height:18px;border-radius:50%;
+  background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);
+  color:var(--green-l);font-size:9px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:var(--font-mono);font-weight:700;
+}
+
+/* ── DSA ROADMAP TABLE ── */
+.dsa-table{width:100%;border-collapse:collapse}
+.dsa-table th{
+  background:var(--card2);padding:10px 14px;text-align:left;
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--grey);font-family:var(--font-mono);
+  border-bottom:2px solid var(--green);
+}
+.dsa-table td{
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  font-size:11px;vertical-align:top;
+}
+.dsa-table tr:hover td{background:rgba(16,185,129,.04)}
+.progress-bar-wrap{background:var(--border2);border-radius:4px;height:6px;min-width:80px}
+.progress-bar{height:6px;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--blue-l))}
+
+/* ── OFF CAMPUS STRATEGY ── */
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.strategy-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:1.5rem;
+  transition:all .2s;
+}
+.strategy-card:hover{border-color:var(--pink);box-shadow:var(--glow-pink);transform:translateY(-3px)}
+.strategy-icon{font-size:2rem;margin-bottom:1rem}
+.strategy-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.strategy-list{list-style:none;margin-top:.75rem}
+.strategy-list li{
+  font-size:11px;color:var(--grey);padding:5px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;gap:6px;align-items:flex-start;
+}
+.strategy-list li:last-child{border:none}
+.strategy-list li::before{content:'✦';color:var(--pink-l);font-size:9px;margin-top:2px}
+
+/* ── DM TEMPLATE ── */
+.dm-box{
+  background:var(--card2);border:1px solid rgba(236,72,153,.2);
+  border-left:3px solid var(--pink);border-radius:0 12px 12px 0;
+  padding:1.25rem 1.5rem;margin:1rem 0;font-family:var(--font-mono);font-size:11px;
+  color:var(--white);line-height:1.8;position:relative;
+}
+.dm-box::before{
+  content:'DM TEMPLATE';position:absolute;top:-10px;left:12px;
+  background:var(--pink);color:#fff;font-size:9px;
+  padding:2px 8px;border-radius:4px;letter-spacing:1px;
+}
+
+/* ── PROBABILITY ── */
+.prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.prob-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:1.5rem;text-align:center;transition:all .2s;
+}
+.prob-card:hover{transform:translateY(-4px)}
+.prob-company{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.prob-salary{font-size:11px;color:var(--grey);font-family:var(--font-mono);margin-bottom:1rem}
+.prob-ring{position:relative;width:100px;height:100px;margin:0 auto 1rem}
+.prob-ring svg{transform:rotate(-90deg)}
+.prob-ring-val{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.prob-pct{font-family:var(--font-display);font-size:1.6rem;font-weight:800;line-height:1}
+.prob-label{font-size:9px;color:var(--grey);font-family:var(--font-mono)}
+.prob-desc{font-size:10px;color:var(--grey);line-height:1.5;margin-top:.5rem}
+
+/* ── INTERVIEW QS ── */
+.qa-section{margin-bottom:2.5rem}
+.qa-category{
+  display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border2);
+  font-family:var(--font-display);font-size:1rem;font-weight:700;
+}
+.qa-list{display:flex;flex-direction:column;gap:.75rem}
+.qa-item{
+  background:var(--card);border:1px solid var(--border2);border-radius:10px;
+  padding:1rem;transition:all .2s;
+}
+.qa-item:hover{border-color:var(--blue);background:rgba(59,130,246,.05)}
+.qa-q{font-size:12px;font-weight:600;margin-bottom:.5rem;color:var(--white)}
+.qa-hint{font-size:11px;color:var(--grey);font-family:var(--font-mono);
+  background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);
+  padding:.5rem .75rem;border-radius:6px;margin-top:.5rem;}
+
+/* ── RESOURCES ── */
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.resource-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:12px;
+  padding:1.1rem;display:flex;gap:1rem;align-items:flex-start;
+  transition:all .2s;
+}
+.resource-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.resource-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.resource-title{font-family:var(--font-display);font-size:.9rem;font-weight:700;margin-bottom:2px}
+.resource-desc{font-size:10px;color:var(--grey);line-height:1.5}
+.resource-type{
+  font-size:9px;font-family:var(--font-mono);
+  padding:2px 6px;border-radius:4px;margin-top:.5rem;display:inline-block;
+}
+
+/* ── FINAL VERDICT ── */
+.verdict-box{
+  background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(236,72,153,.08));
+  border:1px solid rgba(124,58,237,.3);border-radius:20px;padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.verdict-box::before{
+  content:'';position:absolute;top:-50%;right:-20%;
+  width:400px;height:400px;background:radial-gradient(circle,rgba(236,72,153,.08),transparent);
+  border-radius:50%;
+}
+.verdict-title{
+  font-family:var(--font-display);font-size:2rem;font-weight:800;
+  letter-spacing:-1px;margin-bottom:1.5rem;
+}
+.verdict-points{list-style:none;display:flex;flex-direction:column;gap:1rem}
+.verdict-points li{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:1rem;background:rgba(255,255,255,.03);border-radius:10px;
+  border:1px solid var(--border);
+}
+.verdict-num{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:800;font-size:.9rem;
+  flex-shrink:0;
+}
+.verdict-text{font-size:12px;color:var(--white);line-height:1.7}
+.verdict-text strong{color:var(--purple-l)}
+
+/* ── CHECKLIST ── */
+.checklist{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+.check-item{
+  display:flex;align-items:center;gap:.75rem;
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:8px;padding:.75rem 1rem;transition:all .2s;cursor:pointer;
+}
+.check-item:hover{border-color:var(--green)}
+.check-item input[type=checkbox]{
+  width:16px;height:16px;accent-color:var(--green);cursor:pointer;flex-shrink:0;
+}
+.check-item label{font-size:12px;cursor:pointer;flex:1}
+.check-item.urgent label{color:var(--red)}
+.check-item.urgent{border-color:rgba(239,68,68,.3)}
+
+/* ── PROGRESS TRACKER WIDGET ── */
+.progress-widget{
+  background:var(--card);border:1px solid var(--border2);border-radius:20px;
+  padding:2rem;margin-bottom:2rem;
+}
+.pw-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:1.5rem}
+.pw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem}
+.pw-item{}
+.pw-label{font-size:10px;color:var(--grey);letter-spacing:1px;text-transform:uppercase;font-family:var(--font-mono);margin-bottom:.5rem}
+.pw-bar-wrap{background:var(--border2);border-radius:6px;height:8px;position:relative;overflow:hidden}
+.pw-bar{height:8px;border-radius:6px;position:relative}
+.pw-bar::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  animation:shimmer 2s infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.pw-val{font-family:var(--font-mono);font-size:11px;color:var(--white);margin-top:4px}
+
+/* ── QUOTE BANNER ── */
+.quote-banner{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  border-radius:16px;padding:2rem 3rem;text-align:center;
+  margin:2rem 0;position:relative;overflow:hidden;
+}
+.quote-banner::before{
+  content:'"';position:absolute;top:-20px;left:20px;
+  font-size:10rem;color:rgba(255,255,255,.06);
+  font-family:Georgia,serif;line-height:1;
+}
+.quote-text{
+  font-family:var(--font-display);font-size:1.2rem;font-weight:700;
+  line-height:1.5;color:#fff;position:relative;z-index:1;
+}
+.quote-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:.75rem;font-family:var(--font-mono)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:3rem 2rem;
+  border-top:1px solid var(--border);
+  color:var(--grey);font-size:11px;font-family:var(--font-mono);
+}
+footer span{color:var(--purple-l)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  nav .nav-links{display:none}
+  .hero-name{letter-spacing:-2px}
+  .hero-stats{gap:1rem}
+  .month-cols{grid-template-columns:1fr}
+  .schedule-grid{grid-template-columns:1fr}
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ RAMYA K / WAR ROOM</div>
+  <ul class="nav-links">
+    <li><a href="#scores">Analysis</a></li>
+    <li><a href="#companies">Companies</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#offcampus">Off-Campus</a></li>
+    <li><a href="#interviews">Interviews</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+  <div class="nav-badge">🎯 Target: ₹20L–40L+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+  <div class="hero-tag">SDE Placement War Room · Jain University 2027</div>
+  <h1 class="hero-name">RAMYA K<br><span>EXECUTES.</span></h1>
+  <p class="hero-sub">B.Tech CSE AIML · 9.02 CGPA · <span>AI Intern @Infosys</span> · June 2027</p>
+  <div class="hero-stats">
+    <div class="h-stat" style="--c:var(--purple-l)">
+      <div class="h-stat-val" style="color:var(--purple-l)">₹40L</div>
+      <div class="h-stat-label">Max Target</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-val" style="color:var(--green-l)">9.02</div>
+      <div class="h-stat-label">CGPA Weapon</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-val" style="color:var(--yellow-l)">199</div>
+      <div class="h-stat-label">Days to Execute</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-val" style="color:var(--pink-l)">45</div>
+      <div class="h-stat-label">LC Solved</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-val" style="color:var(--blue-l)">3</div>
+      <div class="h-stat-label">Real Projects</div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="#roadmap" class="btn-primary">View My Roadmap →</a>
+    <a href="#checklist" class="btn-ghost">48-Hour Checklist</a>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<hr class="divider">
+
+<!-- PROFILE SCORES -->
+<section id="scores">
+  <div class="section-label">Section 01 — Profile Analysis</div>
+  <h2 class="section-title">The Honest<br><span class="accent">X-Ray.</span></h2>
+
+  <div class="score-grid">
+    <div class="score-card sc-yellow fade-in">
+      <div class="sc-icon">📄</div>
+      <div class="sc-label">Resume Score</div>
+      <div class="sc-score" style="color:var(--yellow-l)">6.8</div>
+      <div class="sc-out-of">/ 10</div>
+      <div class="sc-verdict">Strong academics. Real internship. Projects need quantification.</div>
+      <ul class="sc-items">
+        <li><span class="tag-good">✓</span><span>CGPA 9.02 — clears every filter</span></li>
+        <li><span class="tag-good">✓</span><span>AI Intern @Infosys (rare at 3rd year)</span></li>
+        <li><span class="tag-good">✓</span><span>HackerRank Python 4-star badge</span></li>
+        <li><span class="tag-bad">✗</span><span>No accuracy metrics in project bullets</span></li>
+        <li><span class="tag-bad">✗</span><span>No backend skills listed anywhere</span></li>
+        <li><span class="tag-bad">✗</span><span>Typos: "Scikit-learn", "TensorFlow"</span></li>
+        <li><span class="tag-warn">!</span><span>SIH hackathon missing — add it now</span></li>
+      </ul>
+    </div>
+
+    <div class="score-card sc-red fade-in">
+      <div class="sc-icon">🐙</div>
+      <div class="sc-label">GitHub Score</div>
+      <div class="sc-score" style="color:var(--red)">2.5</div>
+      <div class="sc-out-of">/ 10</div>
+      <div class="sc-verdict">Real projects exist. Zero READMEs. Zero deploys. Ghost profile.</div>
+      <ul class="sc-items">
+        <li><span class="tag-good">✓</span><span>Sign Language Detection — impressive</span></li>
+        <li><span class="tag-good">✓</span><span>PolicyNav NLP project — best asset</span></li>
+        <li><span class="tag-bad">✗</span><span>ZERO README files on any repo</span></li>
+        <li><span class="tag-bad">✗</span><span>Zero live deploy links anywhere</span></li>
+        <li><span class="tag-bad">✗</span><span>No profile README (the animated one)</span></li>
+        <li><span class="tag-bad">✗</span><span>Max streak = 1 day (not 1 month)</span></li>
+        <li><span class="tag-bad">✗</span><span>Messy repo name: "Infosys_Springboard_PolicyNav_Public-_…"</span></li>
+      </ul>
+    </div>
+
+    <div class="score-card sc-red fade-in">
+      <div class="sc-icon">💼</div>
+      <div class="sc-label">LinkedIn Score</div>
+      <div class="sc-score" style="color:var(--red)">1.5</div>
+      <div class="sc-out-of">/ 10</div>
+      <div class="sc-verdict">500 connections, zero activation. A sleeping giant.</div>
+      <ul class="sc-items">
+        <li><span class="tag-good">✓</span><span>500+ connections — usable base</span></li>
+        <li><span class="tag-good">✓</span><span>Following companies already</span></li>
+        <li><span class="tag-bad">✗</span><span>Default headline: "Student at Jain University"</span></li>
+        <li><span class="tag-bad">✗</span><span>No About section, no banner, no headshot</span></li>
+        <li><span class="tag-bad">✗</span><span>Zero recruiter DMs ever sent</span></li>
+        <li><span class="tag-bad">✗</span><span>Posts only for certifications — not enough</span></li>
+        <li><span class="tag-warn">!</span><span>Open to Work not enabled</span></li>
+      </ul>
+    </div>
+
+    <div class="score-card sc-purple fade-in">
+      <div class="sc-icon">🧮</div>
+      <div class="sc-label">LeetCode Score</div>
+      <div class="sc-score" style="color:var(--purple-l)">3.5</div>
+      <div class="sc-out-of">/ 10</div>
+      <div class="sc-verdict">14 Medium + 3 Hard at this stage is above average. Streak is not.</div>
+      <ul class="sc-items">
+        <li><span class="tag-good">✓</span><span>14 Medium problems — ahead of peers</span></li>
+        <li><span class="tag-good">✓</span><span>3 Hard solved — solid for this stage</span></li>
+        <li><span class="tag-good">✓</span><span>30+ min attempt discipline — correct habit</span></li>
+        <li><span class="tag-bad">✗</span><span>Max streak = 1 day (needs to be 100+)</span></li>
+        <li><span class="tag-bad">✗</span><span>No contests participated yet</span></li>
+        <li><span class="tag-bad">✗</span><span>Not using NeetCode 150 or Striver sheet</span></li>
+      </ul>
+    </div>
+
+    <div class="score-card sc-green fade-in" style="grid-column:span 2">
+      <div class="sc-icon">🏆</div>
+      <div class="sc-label">Your Biggest Hidden Weapon</div>
+      <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin:.5rem 0;color:var(--green-l)">9.02 CGPA + AI Internship at 3rd Year = Elite Shortlisting</div>
+      <div class="sc-verdict" style="font-size:12px;line-height:1.8">
+        Google requires 6.0 · Microsoft requires 8.0 · Amazon requires 7.0 · Goldman Sachs requires 6.5 — <strong style="color:var(--green-l)">you clear ALL of them.</strong><br>
+        Having an active AI internship (NLP domain) in pre-final year is something less than 5% of your batch can claim. Combined with your 9.02 CGPA and ML projects, you are dramatically underestimating your own profile strength. The only thing holding you back is DSA depth, backend skills, and profile activation — all of which this plan fixes.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROBABILITY -->
+<section>
+  <div class="section-label">Section 02 — Probability Matrix</div>
+  <h2 class="section-title">What Are Your<br><span class="accent-pink">Actual Odds?</span></h2>
+  <div class="prob-grid">
+    <div class="prob-card fade-in">
+      <div class="prob-company">Google / Microsoft</div>
+      <div class="prob-salary">₹30–45 LPA</div>
+      <div class="prob-ring">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1f2937" stroke-width="10"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="url(#g1)" stroke-width="10"
+            stroke-dasharray="251.2" stroke-dashoffset="188.4" stroke-linecap="round"/>
+          <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#ec4899"/></linearGradient></defs>
+        </svg>
+        <div class="prob-ring-val"><div class="prob-pct" style="color:var(--purple-l)">25%</div><div class="prob-label">WITH PLAN</div></div>
+      </div>
+      <div class="prob-desc">Requires near-perfect DSA + system design. Pursue anyway — prep overlaps fully with lower targets.</div>
+    </div>
+    <div class="prob-card fade-in">
+      <div class="prob-company">Amazon · Goldman Sachs</div>
+      <div class="prob-salary">₹25–35 LPA</div>
+      <div class="prob-ring">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1f2937" stroke-width="10"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#ec4899" stroke-width="10"
+            stroke-dasharray="251.2" stroke-dashoffset="125.6" stroke-linecap="round"/>
+        </svg>
+        <div class="prob-ring-val"><div class="prob-pct" style="color:var(--pink-l)">50%</div><div class="prob-label">WITH PLAN</div></div>
+      </div>
+      <div class="prob-desc">Your CGPA + Infosys internship + ML projects make you a serious candidate. One referral changes everything.</div>
+    </div>
+    <div class="prob-card fade-in">
+      <div class="prob-company">PhonePe · Walmart · Ninjacart</div>
+      <div class="prob-salary">₹18–28 LPA</div>
+      <div class="prob-ring">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1f2937" stroke-width="10"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#10b981" stroke-width="10"
+            stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-linecap="round"/>
+        </svg>
+        <div class="prob-ring-val"><div class="prob-pct" style="color:var(--green-l)">75%</div><div class="prob-label">WITH PLAN</div></div>
+      </div>
+      <div class="prob-desc"><strong>Your PRIMARY target.</strong> 9.02 CGPA clears shortlisting. Strong DSA + 1 backend project = real shot here.</div>
+    </div>
+    <div class="prob-card fade-in">
+      <div class="prob-company">EPAM · Akamai · CitiusTech</div>
+      <div class="prob-salary">₹14–22 LPA</div>
+      <div class="prob-ring">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1f2937" stroke-width="10"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#f59e0b" stroke-width="10"
+            stroke-dasharray="251.2" stroke-dashoffset="25.1" stroke-linecap="round"/>
+        </svg>
+        <div class="prob-ring-val"><div class="prob-pct" style="color:var(--yellow-l)">90%</div><div class="prob-label">WITH PLAN</div></div>
+      </div>
+      <div class="prob-desc">Your safety net at ₹14L+. Secure this by Month 4. Use as offer-in-hand while chasing bigger targets.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMPANY TIERS -->
+<section id="companies">
+  <div class="section-label">Section 03 — Target Company Intelligence</div>
+  <h2 class="section-title">Know Your<br><span class="accent-yellow">Battlefield.</span></h2>
+
+  <div class="tier-section fade-in">
+    <div class="tier-header">
+      <div class="tier-badge" style="color:var(--yellow-l)">🥇</div>
+      <div class="tier-info">
+        <h3 style="color:var(--yellow-l)">TIER 1 — DREAM TARGETS</h3>
+        <p>Requires 350+ LC problems, system design basics, and strong behavioral prep</p>
+      </div>
+      <div class="tier-salary" style="color:var(--yellow-l)">₹25L – ₹50L</div>
+    </div>
+    <div class="company-grid">
+      <div class="company-card"><div class="company-name">Google</div><div class="company-meta">DSA Hard · System Design · 2 rounds</div><div class="company-salary" style="color:var(--yellow-l)">₹35–52 LPA</div></div>
+      <div class="company-card"><div class="company-name">Microsoft</div><div class="company-meta">DSA Med-Hard · OOP · Behavioral</div><div class="company-salary" style="color:var(--yellow-l)">₹30–45 LPA</div></div>
+      <div class="company-card"><div class="company-name">Amazon</div><div class="company-meta">DSA + 16 Leadership Principles</div><div class="company-salary" style="color:var(--yellow-l)">₹25–32 LPA</div></div>
+      <div class="company-card"><div class="company-name">Goldman Sachs</div><div class="company-meta">DSA + Aptitude + Finance basics</div><div class="company-salary" style="color:var(--yellow-l)">₹22–35 LPA</div></div>
+      <div class="company-card"><div class="company-name">Walmart Global Tech</div><div class="company-meta">DSA · System Design · 9.02 CGPA ✓</div><div class="company-salary" style="color:var(--yellow-l)">₹22–28 LPA</div></div>
+    </div>
+  </div>
+
+  <div class="tier-section fade-in">
+    <div class="tier-header">
+      <div class="tier-badge" style="color:var(--blue-l)">🥈</div>
+      <div class="tier-info">
+        <h3 style="color:var(--blue-l)">TIER 2 — PRIMARY TARGETS (Most Realistic ₹20L+ Path)</h3>
+        <p>Your 9.02 CGPA + Infosys internship puts you in strong contention here</p>
+      </div>
+      <div class="tier-salary" style="color:var(--blue-l)">₹15L – ₹25L</div>
+    </div>
+    <div class="company-grid">
+      <div class="company-card"><div class="company-name">PhonePe</div><div class="company-meta">Backend + DSA + System Design</div><div class="company-salary" style="color:var(--blue-l)">₹18–25 LPA</div></div>
+      <div class="company-card"><div class="company-name">Ninjacart</div><div class="company-meta">Full Stack + DSA + Problem Solving</div><div class="company-salary" style="color:var(--blue-l)">₹15–22 LPA</div></div>
+      <div class="company-card"><div class="company-name">Akamai</div><div class="company-meta">DSA + Networking + C/C++</div><div class="company-salary" style="color:var(--blue-l)">₹16–22 LPA</div></div>
+      <div class="company-card"><div class="company-name">EPAM Systems</div><div class="company-meta">Full Stack · AIML branch preference</div><div class="company-salary" style="color:var(--blue-l)">₹14–20 LPA</div></div>
+      <div class="company-card"><div class="company-name">Wells Fargo Tech</div><div class="company-meta">Java · SQL · DSA · Finance</div><div class="company-salary" style="color:var(--blue-l)">₹12–18 LPA</div></div>
+      <div class="company-card"><div class="company-name">Finastra</div><div class="company-meta">Java · DSA · Fintech domain</div><div class="company-salary" style="color:var(--blue-l)">₹12–18 LPA</div></div>
+      <div class="company-card"><div class="company-name">CitiusTech</div><div class="company-meta">Java · Healthcare · DSA</div><div class="company-salary" style="color:var(--blue-l)">₹12–18 LPA</div></div>
+      <div class="company-card"><div class="company-name">IBM (Software)</div><div class="company-meta">Cloud · AI · DSA · Java</div><div class="company-salary" style="color:var(--blue-l)">₹10–18 LPA</div></div>
+    </div>
+  </div>
+
+  <div class="tier-section fade-in">
+    <div class="tier-header">
+      <div class="tier-badge" style="color:var(--grey)">🥉</div>
+      <div class="tier-info">
+        <h3 style="color:var(--grey)">TIER 3 — BACKUP (Offer-in-Hand Only)</h3>
+        <p>Accept only while pursuing Tier 1/2. These are floors, not ceilings.</p>
+      </div>
+      <div class="tier-salary" style="color:var(--grey)">₹6L – ₹12L</div>
+    </div>
+    <div class="company-grid">
+      <div class="company-card" style="opacity:.7"><div class="company-name">Accolite</div><div class="company-salary" style="color:var(--grey)">₹10–15 LPA</div></div>
+      <div class="company-card" style="opacity:.7"><div class="company-name">Deloitte Tech</div><div class="company-salary" style="color:var(--grey)">₹8–12 LPA</div></div>
+      <div class="company-card" style="opacity:.7"><div class="company-name">Hexaware</div><div class="company-salary" style="color:var(--grey)">₹6–10 LPA</div></div>
+      <div class="company-card" style="opacity:.7"><div class="company-name">Kyndryl</div><div class="company-salary" style="color:var(--grey)">₹6–9 LPA</div></div>
+      <div class="company-card" style="opacity:.5"><div class="company-name" style="text-decoration:line-through">TCS/Infy/Wipro</div><div class="company-salary" style="color:var(--red)">❌ NOT YOUR GOAL</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-label">Section 04 — Master Plan</div>
+  <h2 class="section-title">6.5 Month<br><span class="accent-green">Execution Map.</span></h2>
+  <div class="roadmap">
+
+    <div class="month-card fade-in">
+      <div class="month-dot" style="background:rgba(16,185,129,.15);border-color:var(--green);color:var(--green-l)">M1</div>
+      <div class="month-body">
+        <div class="month-title"><span>Month 1 — BUILD THE MACHINE</span> <span class="pill pill-green">Mar 16 – Apr 15</span></div>
+        <div class="month-dates">Theme: Close obvious gaps. Build the daily habit engine. Fix all profiles.</div>
+        <div class="month-cols">
+          <div class="month-col">
+            <h4>DSA Goal</h4>
+            <ul>
+              <li>Arrays + Two Pointers (25 probs)</li>
+              <li>Strings + HashMap (20 probs)</li>
+              <li>Binary Search — all patterns (15)</li>
+              <li>Linked Lists (20 probs)</li>
+              <li>Target: <strong>120 total</strong></li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>CS Theory (30 min/day)</h4>
+            <ul>
+              <li>OOP — make it interview-perfect</li>
+              <li>SQL — JOINs, GROUP BY, Subqueries</li>
+              <li>SQL Window Functions</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Profile Blitz (This Week)</h4>
+            <ul>
+              <li>Deploy Sign-Lang to Streamlit</li>
+              <li>GitHub profile README live</li>
+              <li>LinkedIn Open to Work + headline</li>
+              <li>Resume rewrite + ATS-clean PDF</li>
+              <li>Add READMEs to all 3 repos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="month-target">🎯 <strong>Month 1 Exit Criteria:</strong> 120 LC solved · Streak 30+ days · All profiles fixed · Sign-Lang deployed on Streamlit</div>
+      </div>
+    </div>
+
+    <div class="month-card fade-in">
+      <div class="month-dot" style="background:rgba(59,130,246,.15);border-color:var(--blue);color:var(--blue-l)">M2</div>
+      <div class="month-body">
+        <div class="month-title"><span>Month 2 — TREES + BACKEND BEGINS</span> <span class="pill pill-blue">Apr 16 – May 15</span></div>
+        <div class="month-dates">Theme: Crack the hardest conceptual shift (recursion). Start backend — your critical gap.</div>
+        <div class="month-cols">
+          <div class="month-col">
+            <h4>DSA Goal</h4>
+            <ul>
+              <li>Recursion + Backtracking</li>
+              <li>Stacks and Queues — all patterns</li>
+              <li>Binary Trees — traversals, LCA</li>
+              <li>BST + Heaps/Priority Queue</li>
+              <li>Target: <strong>200 total</strong></li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>CS Theory</h4>
+            <ul>
+              <li>OS: Processes, Threads, Deadlocks</li>
+              <li>OS: Memory Management, Scheduling</li>
+              <li>Start: Computer Networks basics</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Backend Learning (Weekend)</h4>
+            <ul>
+              <li>Node.js + Express.js basics</li>
+              <li>Build simple REST API with CRUD</li>
+              <li>Connect MongoDB to Express app</li>
+              <li>Build PolicyNav Flask API endpoint</li>
+            </ul>
+          </div>
+        </div>
+        <div class="month-target">🎯 <strong>Month 2 Exit:</strong> 200 LC · PolicyNav API deployed · OS theory complete · First backend API running</div>
+      </div>
+    </div>
+
+    <div class="month-card fade-in">
+      <div class="month-dot" style="background:rgba(239,68,68,.15);border-color:var(--red);color:var(--red)">M3</div>
+      <div class="month-body">
+        <div class="month-title"><span>Month 3 — GRAPHS + DP BREAKTHROUGH 🔥</span> <span class="pill pill-red">May 16 – Jun 15</span></div>
+        <div class="month-dates">This is the month that separates candidates. Most people slow down here. YOU DO NOT.</div>
+        <div class="month-cols">
+          <div class="month-col">
+            <h4>DSA Goal</h4>
+            <ul>
+              <li>Graphs — BFS, DFS, Cycle Detection</li>
+              <li>Graphs — Dijkstra, Union-Find, Topo Sort</li>
+              <li>DP — 1D: Fibonacci, Knapsack, Coin Change</li>
+              <li>DP — 2D: LCS, LIS, Matrix Chain</li>
+              <li>Target: <strong>290 total</strong></li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>CS Theory</h4>
+            <ul>
+              <li>CN: OSI, TCP/IP, HTTP vs HTTPS</li>
+              <li>CN: DNS, Load Balancing, CDN</li>
+              <li>DBMS: Transactions, ACID, Indexing</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>System Design (Start)</h4>
+            <ul>
+              <li>Design a URL Shortener</li>
+              <li>Design a Rate Limiter</li>
+              <li>Design a basic notification service</li>
+              <li>Build Project 3: DevTracker</li>
+            </ul>
+          </div>
+        </div>
+        <div class="month-target">🎯 <strong>Month 3 Exit:</strong> 290 LC · Can solve 70% Medium independently · All 3 projects deployed · Off-campus apps begin</div>
+      </div>
+    </div>
+
+    <div class="month-card fade-in">
+      <div class="month-dot" style="background:rgba(124,58,237,.15);border-color:var(--purple);color:var(--purple-l)">M4</div>
+      <div class="month-body">
+        <div class="month-title"><span>Month 4 — PERFORMANCE MODE</span> <span class="pill pill-purple">Jun 16 – Jul 15</span></div>
+        <div class="month-dates">Theme: Stop learning, start performing. Timed OA simulations. Mock interviews. Applications.</div>
+        <div class="month-cols">
+          <div class="month-col">
+            <h4>DSA Goal</h4>
+            <ul>
+              <li>Hard DP + Intervals + Greedy</li>
+              <li>Bit Manipulation + Advanced Binary Search</li>
+              <li>Timed OA simulation (90 min sets)</li>
+              <li>Company-tagged problems daily</li>
+              <li>Target: <strong>360 total</strong></li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Interview Prep</h4>
+            <ul>
+              <li>Pramp mock interviews: 2/week</li>
+              <li>Write 15 STAR stories</li>
+              <li>Amazon LP mastery — all 16</li>
+              <li>System design practice: 1/day</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Applications</h4>
+            <ul>
+              <li>Apply 10–15 companies/week</li>
+              <li>Referral ask: 5 DMs/week</li>
+              <li>GHCI 2026 registration</li>
+              <li>Resume final version locked</li>
+            </ul>
+          </div>
+        </div>
+        <div class="month-target">🎯 <strong>Month 4 Exit:</strong> 360 LC · 15 STAR stories ready · 40+ applications sent · At least 1 referral secured</div>
+      </div>
+    </div>
+
+    <div class="month-card fade-in">
+      <div class="month-dot" style="background:rgba(245,158,11,.15);border-color:var(--yellow);color:var(--yellow-l)">M5</div>
+      <div class="month-body">
+        <div class="month-title"><span>Month 5 — INTERVIEW EXECUTION</span> <span class="pill pill-yellow">Jul 16 – Aug 15</span></div>
+        <div class="month-dates">No new topics. Only performance. Real interviews may start this month.</div>
+        <div class="month-cols">
+          <div class="month-col">
+            <h4>DSA: Freeze & Revise</h4>
+            <ul>
+              <li>Revise all patterns from your notes</li>
+              <li>Amazon / Google tagged problems only</li>
+              <li>Target: <strong>400 problems</strong></li>
+              <li>LeetCode contests every Sunday</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Company-Specific Prep</h4>
+            <ul>
+              <li>Amazon: LP stories + medium DP</li>
+              <li>Goldman: Probability + aptitude</li>
+              <li>PhonePe: Backend + system design</li>
+              <li>Google: Hard DSA + system design</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Applications</h4>
+            <ul>
+              <li>10–15 new companies per week</li>
+              <li>Follow up on all pending referrals</li>
+              <li>On-campus + off-campus parallel</li>
+            </ul>
+          </div>
+        </div>
+        <div class="month-target">🎯 <strong>Month 5 Exit:</strong> 400 LC total · 30+ mock interviews done · ≥1 real interview scheduled · PLACEMENT SEASON LIVE</div>
+      </div>
+    </div>
+
+    <div class="month-card fade-in">
+      <div class="month-dot" style="background:rgba(236,72,153,.15);border-color:var(--pink);color:var(--pink-l)">M6+</div>
+      <div class="month-body">
+        <div class="month-title"><span>Month 6 — PEAK + PLACEMENT SEASON 🏆</span> <span class="pill pill-pink">Aug 16 – Sep 30</span></div>
+        <div class="month-dates">Execute. Interview. Negotiate. Win.</div>
+        <div class="month-cols">
+          <div class="month-col">
+            <h4>DSA Final</h4>
+            <ul>
+              <li>Revision only — no new learning</li>
+              <li>Hard problem / day (interview stamina)</li>
+              <li>Target: <strong>420 problems</strong></li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Active Interviews</h4>
+            <ul>
+              <li>2 full mock interviews / week</li>
+              <li>Real interviews — peak performance</li>
+              <li>Negotiate every offer you get</li>
+            </ul>
+          </div>
+          <div class="month-col">
+            <h4>Celebrate 🎉</h4>
+            <ul>
+              <li>You showed up every single day</li>
+              <li>You solved 420 problems</li>
+              <li>You deployed 3 real projects</li>
+              <li>YOU EARNED THIS.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="month-target">🏆 <strong>GOAL:</strong> ₹20L–₹40L+ SDE offer · Placement season victory · Jain University → Product Company</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DAILY SCHEDULE -->
+<section id="schedule">
+  <div class="section-label">Section 05 — Daily Execution</div>
+  <h2 class="section-title">Every Day<br><span class="accent">Non-Negotiable.</span></h2>
+  <div class="schedule-grid">
+    <div class="schedule-block fade-in">
+      <div class="schedule-header weekday">📅 WEEKDAY SCHEDULE — 5 Hours</div>
+      <div class="time-block"><div class="time-dot" style="background:var(--green)"></div><div class="time-label">6:00 – 7:00 AM</div><div class="time-desc">DSA — 1 Medium problem (topic of the week). No looking at hints for 30 min.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--purple-l)"></div><div class="time-label">7:00 – 7:30 AM</div><div class="time-desc">Review yesterday's solution. Find optimal approach. Update revision notes.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--muted)"></div><div class="time-label">College Hours</div><div class="time-desc" style="color:var(--grey)">Attend classes. Use spare periods to read CS theory.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--green)"></div><div class="time-label">6:00 – 7:30 PM</div><div class="time-desc">DSA — 1 more problem (alternate: revision + 1 new). Hard problems on weekends only.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--blue)"></div><div class="time-label">7:30 – 8:30 PM</div><div class="time-desc">CS Theory (30 min) + Project feature work (30 min). Both non-negotiable.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--pink)"></div><div class="time-label">8:30 – 9:00 PM</div><div class="time-desc">LinkedIn: Post OR comment on 2 posts + 1 recruiter DM. Every. Single. Day.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--grey)"></div><div class="time-label">9:00 – 9:30 PM</div><div class="time-desc">GitHub commit — even README update counts. Keep the graph green.</div></div>
+    </div>
+    <div class="schedule-block fade-in">
+      <div class="schedule-header weekend">🔥 WEEKEND SCHEDULE — 8 Hours</div>
+      <div class="time-block"><div class="time-dot" style="background:var(--purple-l)"></div><div class="time-label">7:00 – 9:00 AM</div><div class="time-desc">Deep project work — building features, fixing bugs, deployment.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--green)"></div><div class="time-label">9:00 – 11:00 AM</div><div class="time-desc">DSA — 1 Medium + 1 Hard. Timed sessions. Simulate OA pressure.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--blue)"></div><div class="time-label">11:00 AM – 12:00</div><div class="time-desc">CS Theory — full chapter. OS / CN / DBMS rotation.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--yellow-l)"></div><div class="time-label">1:00 – 3:00 PM</div><div class="time-desc">Mock interview (Pramp) OR LeetCode Weekly Contest. No skipping.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--purple-l)"></div><div class="time-label">3:00 – 5:00 PM</div><div class="time-desc">Project continued — deployment, frontend polish, README updates.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--green-l)"></div><div class="time-label">5:00 – 6:00 PM</div><div class="time-desc">System Design — 1 topic (Gaurav Sen YouTube). Take notes in own words.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--pink)"></div><div class="time-label">6:00 – 7:00 PM</div><div class="time-desc">LinkedIn batch: 5 recruiter DMs + update job tracker Notion/Excel.</div></div>
+      <div class="time-block"><div class="time-dot" style="background:var(--grey)"></div><div class="time-label">7:00 – 8:00 PM</div><div class="time-desc">Week review. What went wrong? What's next week's plan? Update tracker.</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DSA ROADMAP -->
+<section>
+  <div class="section-label">Section 06 — DSA Battle Plan</div>
+  <h2 class="section-title">45 → <span class="accent-green">420 Problems.</span><br>Here's Exactly How.</h2>
+  <div class="progress-widget fade-in">
+    <div class="pw-title">📊 Current DSA Snapshot (Update in your Excel tracker)</div>
+    <div class="pw-grid">
+      <div class="pw-item"><div class="pw-label">Total Solved</div><div class="pw-bar-wrap"><div class="pw-bar" style="width:11%;background:linear-gradient(90deg,var(--green),var(--blue-l))"></div></div><div class="pw-val">45 / 420</div></div>
+      <div class="pw-item"><div class="pw-label">Easy</div><div class="pw-bar-wrap"><div class="pw-bar" style="width:35%;background:var(--blue)"></div></div><div class="pw-val">28 / 80</div></div>
+      <div class="pw-item"><div class="pw-label">Medium</div><div class="pw-bar-wrap"><div class="pw-bar" style="width:6%;background:var(--yellow)"></div></div><div class="pw-val">14 / 250</div></div>
+      <div class="pw-item"><div class="pw-label">Hard</div><div class="pw-bar-wrap"><div class="pw-bar" style="width:3%;background:var(--red)"></div></div><div class="pw-val">3 / 90</div></div>
+      <div class="pw-item"><div class="pw-label">Max Streak</div><div class="pw-bar-wrap"><div class="pw-bar" style="width:1%;background:var(--pink)"></div></div><div class="pw-val">1 / 100 days</div></div>
+      <div class="pw-item"><div class="pw-label">Contests</div><div class="pw-bar-wrap"><div class="pw-bar" style="width:0%;background:var(--purple)"></div></div><div class="pw-val">0 — Start Sunday</div></div>
+    </div>
+  </div>
+  <div style="overflow-x:auto">
+  <table class="dsa-table fade-in">
+    <thead><tr><th>Topic</th><th>Target</th><th>Key Problems to Solve</th><th>Primary Resource</th><th>Month</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Arrays & Hashing</strong></td><td><span class="pill pill-green">35</span></td><td>Two Sum, Group Anagrams, Top K Elements, Product Except Self</td><td>NeetCode 150</td><td>Month 1</td></tr>
+      <tr><td><strong>Two Pointers</strong></td><td><span class="pill pill-green">20</span></td><td>3Sum, Container With Most Water, Trapping Rain Water</td><td>NeetCode</td><td>Month 1</td></tr>
+      <tr><td><strong>Sliding Window</strong></td><td><span class="pill pill-green">15</span></td><td>Longest Substr No Repeat, Min Window Substr, Max Sliding Window</td><td>NeetCode</td><td>Month 1</td></tr>
+      <tr><td><strong>Binary Search</strong></td><td><span class="pill pill-green">20</span></td><td>Koko Bananas, Search Rotated Array, Find Min in Rotated Array</td><td>NeetCode + Striver</td><td>Month 1</td></tr>
+      <tr><td><strong>Linked Lists</strong></td><td><span class="pill pill-green">20</span></td><td>Reverse LL, Detect Cycle, Merge K Lists, LRU Cache</td><td>NeetCode</td><td>Month 1</td></tr>
+      <tr><td><strong>Stack & Queue</strong></td><td><span class="pill pill-blue">20</span></td><td>Valid Parentheses, Min Stack, Daily Temperatures, Decode String</td><td>NeetCode</td><td>Month 2</td></tr>
+      <tr><td><strong>Binary Trees</strong></td><td><span class="pill pill-blue">20</span></td><td>Inorder, Max Depth, LCA, Level Order, Serialize/Deserialize</td><td>NeetCode</td><td>Month 2</td></tr>
+      <tr><td><strong>BST</strong></td><td><span class="pill pill-blue">10</span></td><td>Validate BST, Kth Smallest, Insert/Delete, BST Iterator</td><td>NeetCode</td><td>Month 2</td></tr>
+      <tr><td><strong>Heaps</strong></td><td><span class="pill pill-blue">15</span></td><td>Kth Largest, Task Scheduler, Median from Stream, Top K Freq</td><td>NeetCode</td><td>Month 2</td></tr>
+      <tr><td><strong>Graphs</strong></td><td><span class="pill pill-red">35</span></td><td>Islands, Course Schedule, Dijkstra, Word Ladder, Clone Graph</td><td>Striver + NeetCode</td><td>Month 3</td></tr>
+      <tr><td><strong>DP — 1D</strong></td><td><span class="pill pill-red">20</span></td><td>Climbing Stairs, Rob Houses, Word Break, Coin Change</td><td>Aditya Verma YT</td><td>Month 3</td></tr>
+      <tr><td><strong>DP — 2D / Knapsack</strong></td><td><span class="pill pill-red">20</span></td><td>LCS, LIS, Edit Distance, Matrix Chain, Partition Equal Subset</td><td>Aditya Verma YT</td><td>Month 3</td></tr>
+      <tr><td><strong>Greedy</strong></td><td><span class="pill pill-purple">15</span></td><td>Jump Game, Gas Station, Interval Scheduling, Meeting Rooms</td><td>LC Tag</td><td>Month 4</td></tr>
+      <tr><td><strong>Backtracking</strong></td><td><span class="pill pill-purple">15</span></td><td>Subsets, Permutations, N-Queens, Sudoku Solver, Word Search</td><td>NeetCode</td><td>Month 4</td></tr>
+      <tr><td><strong>Tries</strong></td><td><span class="pill pill-purple">10</span></td><td>Insert/Search Trie, Add+Search Words, Max XOR Pair</td><td>NeetCode</td><td>Month 4</td></tr>
+      <tr><td><strong>Bit Manip + Math</strong></td><td><span class="pill pill-yellow">10</span></td><td>Missing Number, Single Number, Count Set Bits, Power of Two</td><td>NeetCode</td><td>Month 4</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Section 07 — Project Plan</div>
+  <h2 class="section-title">3 Projects That<br><span class="accent-green">Actually Matter.</span></h2>
+  <div class="project-grid">
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div><div class="project-title">🤟 Sign Language Detection</div><div style="font-size:10px;color:var(--grey);font-family:var(--font-mono);margin-top:2px">Python · OpenCV · MediaPipe · Scikit-learn</div></div>
+        <div class="project-urgency urgency-now">🔴 DEPLOY NOW — This Week</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">Your most visual, demo-able project. Real-time ASL alphabet recognition using webcam + MediaPipe 21-keypoint landmark extraction. Run your model and record the accuracy number. Add it to your resume TODAY.</div>
+        <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">OpenCV</span><span class="tech-tag">MediaPipe</span><span class="tech-tag">Scikit-learn</span><span class="tech-tag">Streamlit</span></div>
+        <ul class="project-steps">
+          <li><div class="step-num">1</div><span>Run model.evaluate() — record the accuracy %. Add to resume and README.</span></li>
+          <li><div class="step-num">2</div><span>pip install streamlit → wrap detect.py in app.py → deploy at share.streamlit.io (free)</span></li>
+          <li><div class="step-num">3</div><span>Record a 10-second GIF of it working live. Add to GitHub README.</span></li>
+          <li><div class="step-num">4</div><span>Add live Streamlit link to: resume, LinkedIn Featured, GitHub repo, portfolio</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div><div class="project-title">📋 PolicyNav Web Interface</div><div style="font-size:10px;color:var(--grey);font-family:var(--font-mono);margin-top:2px">Python · NLP · Transformers · Flask · React</div></div>
+        <div class="project-urgency urgency-planned">🟡 Month 2 — Your Best Asset</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">Extend your Infosys internship work into a deployed product. When an interviewer asks "tell me about your best project" — you open a live URL. This is the difference between ₹12L and ₹24L.</div>
+        <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">NLP</span><span class="tech-tag">Flask/FastAPI</span><span class="tech-tag">React</span><span class="tech-tag">Vercel</span><span class="tech-tag">Render</span></div>
+        <ul class="project-steps">
+          <li><div class="step-num">1</div><span>Expose your NLP model as a Flask REST API endpoint (/search, /summarize)</span></li>
+          <li><div class="step-num">2</div><span>Build a React frontend: search bar → results with highlighted entities</span></li>
+          <li><div class="step-num">3</div><span>Deploy: Frontend on Vercel (free) + Backend on Render (free)</span></li>
+          <li><div class="step-num">4</div><span>Add custom domain (freenom.com) → looks professional in interview</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div><div class="project-title">🛠️ DevTracker — Full Stack App</div><div style="font-size:10px;color:var(--grey);font-family:var(--font-mono);margin-top:2px">React · Node.js · Express · MongoDB · JWT Auth</div></div>
+        <div class="project-urgency urgency-future">⬜ Month 3 — Gap Filler</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">A job application tracker (meta — you'll actually use it). Shows full-stack competency: REST API design, authentication, database schema, and deployment. Closes your backend gap completely.</div>
+        <div class="tech-tags"><span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">Express</span><span class="tech-tag">MongoDB</span><span class="tech-tag">JWT</span><span class="tech-tag">Railway</span></div>
+        <ul class="project-steps">
+          <li><div class="step-num">1</div><span>Design MongoDB schema: User, Application, Contact, Timeline collections</span></li>
+          <li><div class="step-num">2</div><span>Build Express REST API: CRUD for applications + JWT auth for users</span></li>
+          <li><div class="step-num">3</div><span>Build React frontend: Kanban board (Applied → OA → Interview → Offer)</span></li>
+          <li><div class="step-num">4</div><span>Deploy: Vercel (frontend) + Railway (backend + MongoDB) — both free tier</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- OFF CAMPUS STRATEGY -->
+<section id="offcampus">
+  <div class="section-label">Section 08 — Off-Campus Domination</div>
+  <h2 class="section-title">Your Network<br><span class="accent-pink">Is Your Net Worth.</span></h2>
+  <div class="strategy-grid">
+    <div class="strategy-card fade-in">
+      <div class="strategy-icon">🖥️</div>
+      <div class="strategy-title">Platforms — Check Daily</div>
+      <ul class="strategy-list">
+        <li>linkedin.com/jobs — "SDE fresher Bangalore 2027 batch"</li>
+        <li>careers.google.com → Students/Graduates India</li>
+        <li>amazon.jobs → Software Development Engineer</li>
+        <li>careers.microsoft.com/students</li>
+        <li>instahyre.com — filter: 0 exp, Bangalore</li>
+        <li>cutshort.io — skill-based filtering (great for ML roles)</li>
+        <li>wellfound.com — funded startups ₹15–25L</li>
+        <li>freshershunt.in — daily drive alerts</li>
+      </ul>
+    </div>
+    <div class="strategy-card fade-in">
+      <div class="strategy-icon">👩‍💻</div>
+      <div class="strategy-title">Women in Tech Advantage — USE IT</div>
+      <ul class="strategy-list">
+        <li><strong style="color:var(--pink-l)">Grace Hopper Celebration India (GHCI)</strong> — Register for 2026 now. Companies recruit directly here.</li>
+        <li>Google Women Techmakers — referrals + community</li>
+        <li>Microsoft LEAP Apprenticeship for women</li>
+        <li>Amazon Women in Tech campus events</li>
+        <li>WiDS (Women in Data Science) — relevant for AIML</li>
+        <li>AnitaB.org membership — free, connects to GHCI</li>
+      </ul>
+    </div>
+    <div class="strategy-card fade-in">
+      <div class="strategy-icon">🤝</div>
+      <div class="strategy-title">Referral Strategy — Step by Step</div>
+      <ul class="strategy-list">
+        <li>Map 20 target companies → find 5 employees each on LinkedIn</li>
+        <li>Week 1: Comment on their posts (warm them up first)</li>
+        <li>Week 2: Send personalised DM (template below)</li>
+        <li>Focus on Jain University alumni at target companies first</li>
+        <li>Engineers refer more easily than recruiters — target both</li>
+        <li>Send 5 referral DMs per week, every week from Month 3</li>
+        <li>1 referral at Amazon = shortlisting goes from 15% → 65%</li>
+      </ul>
+    </div>
+    <div class="strategy-card fade-in">
+      <div class="strategy-icon">📱</div>
+      <div class="strategy-title">Hidden Hiring Channels</div>
+      <ul class="strategy-list">
+        <li>GCC (Global Capability Centers): Walmart, Goldman, Target, JP Morgan — less competitive than FAANG, ₹18–30L</li>
+        <li>Telegram: "Off Campus Drives 2026", "SDE Jobs India Freshers"</li>
+        <li>Discord: "CS India", "Indian Dev Community", "Bangalore Tech"</li>
+        <li>Google STEP / University hiring — separate portal from main</li>
+        <li>College alumni who reply fastest — filter LinkedIn by "Jain University" + target company</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dm-box fade-in">
+"Hi [Name], I've been following your posts on [specific topic] — [one genuine insight about their content].
+I'm Ramya, a pre-final year CSE (AIML) student at Jain University with a 9.02 CGPA and an active AI internship at Infosys Springboard where I'm building a policy navigation system using NLP.
+I'm targeting SDE / ML Engineer roles for the 2026–27 cycle and [Company] is genuinely at the top of my list because of [one specific reason — tech stack / product / culture].
+If there's an opening you feel might be a fit and you're comfortable referring, I'd be incredibly grateful. Happy to share my resume. Completely no pressure if not — I appreciate you reading this."
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INTERVIEW PREP -->
+<section id="interviews">
+  <div class="section-label">Section 09 — Interview Simulation</div>
+  <h2 class="section-title">Practice Like<br><span class="accent-yellow">The Interview Is Tomorrow.</span></h2>
+
+  <div class="qa-section fade-in">
+    <div class="qa-category">🧮 <span style="color:var(--green-l)">DSA — Company-Specific Questions</span></div>
+    <div class="qa-list">
+      <div class="qa-item"><div class="qa-q">Amazon: Serialize and Deserialize a Binary Tree</div><div class="qa-hint">Hint: BFS level-order with null markers. Common in Amazon OA + interviews.</div></div>
+      <div class="qa-item"><div class="qa-q">Amazon / Microsoft: LRU Cache — implement using HashMap + DoublyLinkedList</div><div class="qa-hint">Hint: O(1) get and put. Most interviewers want you to implement from scratch, not use OrderedDict.</div></div>
+      <div class="qa-item"><div class="qa-q">Goldman Sachs: Find the Kth Largest Element in a Stream</div><div class="qa-hint">Hint: Min-heap of size k. Design it as a class with add() method.</div></div>
+      <div class="qa-item"><div class="qa-q">PhonePe / Ninjacart: Word Break (DP + Trie approach)</div><div class="qa-hint">Hint: DP with a dictionary set OR Trie to check valid words. Know both approaches.</div></div>
+      <div class="qa-item"><div class="qa-q">Google: Trapping Rain Water</div><div class="qa-hint">Hint: Two-pointer approach O(n) time O(1) space. Can you explain all three approaches (brute, prefix arrays, two pointer)?</div></div>
+    </div>
+  </div>
+
+  <div class="qa-section fade-in">
+    <div class="qa-category">📚 <span style="color:var(--blue-l)">CS Theory — Guaranteed Questions</span></div>
+    <div class="qa-list">
+      <div class="qa-item"><div class="qa-q">OS: "What is a deadlock? What are the four necessary conditions?"</div><div class="qa-hint">Answer: Mutual Exclusion · Hold & Wait · No Preemption · Circular Wait. Know all four with examples.</div></div>
+      <div class="qa-item"><div class="qa-q">OOP: "What is the difference between abstract class and interface? When would you use each?"</div><div class="qa-hint">Answer: Abstract class allows partial implementation + state. Interface is pure contract. Use abstract when sharing code, interface when defining capability.</div></div>
+      <div class="qa-item"><div class="qa-q">DBMS: Write SQL to find the second highest salary from an Employee table</div><div class="qa-hint">Answer: SELECT MAX(salary) FROM employees WHERE salary &lt; (SELECT MAX(salary) FROM employees). Also know the DENSE_RANK() approach.</div></div>
+      <div class="qa-item"><div class="qa-q">CN: "What happens when you type google.com in a browser? Walk me through every step."</div><div class="qa-hint">Answer: DNS resolution → TCP 3-way handshake → HTTP/S request → Server response → Browser rendering. Know each step.</div></div>
+    </div>
+  </div>
+
+  <div class="qa-section fade-in">
+    <div class="qa-category">🎭 <span style="color:var(--pink-l)">Behavioral — Your 5 STAR Stories (Ramya-Specific)</span></div>
+    <div class="qa-list">
+      <div class="qa-item">
+        <div class="qa-q">Story 1 — Learn and Be Curious (Amazon LP): "Tell me about a time you taught yourself a completely new technical skill."</div>
+        <div class="qa-hint">Your answer: Learning MediaPipe and OpenCV from scratch to build the ASL detection system. Describe the research, iterations, and final outcome with the accuracy number.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Story 2 — Ownership: "Tell me about going beyond your assigned responsibility."</div>
+        <div class="qa-hint">Your answer: PolicyNav internship — what you did beyond the brief. Adding extra features, improving the pipeline, working on live sessions proactively.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Story 3 — Invent and Simplify: "Describe a complex problem you simplified."</div>
+        <div class="qa-hint">Your answer: Realizing that ASL detection's entire feature engineering could reduce to 21 × 3 = 63 keypoints per frame. This insight was the key to your model working.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Story 4 — Deliver Results: "Tell me about completing something under a tight deadline."</div>
+        <div class="qa-hint">Your answer: SIH hackathon — Ocean Hazard Detection. What you built, what the constraint was, how the team executed.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Story 5 — Bias for Action: "Tell me about a decision you made with incomplete information."</div>
+        <div class="qa-hint">Your answer: Choosing to pursue the AI internship + maintain CGPA + placement prep simultaneously. How you managed the uncertainty and structured your priorities.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="section-label">Section 10 — Best Resources</div>
+  <h2 class="section-title">Only The<br><span class="accent">Best Tools.</span></h2>
+  <div class="resource-grid">
+    <div class="resource-card fade-in"><div class="resource-icon">🎯</div><div><div class="resource-title">NeetCode 150</div><div class="resource-desc">The most curated, topic-organized DSA sheet with video solutions. Start here. Use daily.</div><div class="resource-type" style="background:rgba(16,185,129,.15);color:var(--green-l)">DSA PRIMARY</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">📊</div><div><div class="resource-title">Striver's A2Z DSA Sheet</div><div class="resource-desc">takeuforward.org — most comprehensive for Indian SDE prep. 450+ problems organized perfectly.</div><div class="resource-type" style="background:rgba(59,130,246,.15);color:var(--blue-l)">DSA SECONDARY</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">🎬</div><div><div class="resource-title">Aditya Verma — DP Playlist</div><div class="resource-desc">YouTube. The gold standard for Dynamic Programming in India. Watch every video in sequence.</div><div class="resource-type" style="background:rgba(124,58,237,.15);color:var(--purple-l)">DP MASTERY</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">🌐</div><div><div class="resource-title">Abdul Bari — Algorithms</div><div class="resource-desc">YouTube. Best for understanding Graphs, recursion, and algorithm complexity conceptually.</div><div class="resource-type" style="background:rgba(124,58,237,.15);color:var(--purple-l)">ALGORITHMS</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">📚</div><div><div class="resource-title">Neso Academy</div><div class="resource-desc">YouTube. OS, DBMS, Computer Networks — exam and interview quality explanations.</div><div class="resource-type" style="background:rgba(59,130,246,.15);color:var(--blue-l)">CS THEORY</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">🏗️</div><div><div class="resource-title">System Design Primer</div><div class="resource-desc">github.com/donnemartin — free, comprehensive. Read URL Shortener, Rate Limiter, Feed design first.</div><div class="resource-type" style="background:rgba(245,158,11,.15);color:var(--yellow-l)">SYSTEM DESIGN</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">📺</div><div><div class="resource-title">Gaurav Sen — System Design</div><div class="resource-desc">YouTube. Best system design channel for SDE-1 prep. Start with his "Consistent Hashing" video.</div><div class="resource-type" style="background:rgba(245,158,11,.15);color:var(--yellow-l)">SYSTEM DESIGN</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">🤝</div><div><div class="resource-title">Pramp.com</div><div class="resource-desc">Free peer mock interviews. Start Month 4. Do 2 sessions/week minimum. Brutal feedback = gold.</div><div class="resource-type" style="background:rgba(236,72,153,.15);color:var(--pink-l)">MOCK INTERVIEWS</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">🚀</div><div><div class="resource-title">Streamlit — Deploy ML Apps</div><div class="resource-desc">streamlit.io — deploy your Sign Language Detection in 2 hours. Free hosting. Your first live demo link.</div><div class="resource-type" style="background:rgba(16,185,129,.15);color:var(--green-l)">DEPLOYMENT</div></div></div>
+    <div class="resource-card fade-in"><div class="resource-icon">🗺️</div><div><div class="resource-title">roadmap.sh/backend</div><div class="resource-desc">Follow the Backend Developer roadmap. Use it to guide your Node.js + API learning in Month 2.</div><div class="resource-type" style="background:rgba(124,58,237,.15);color:var(--purple-l)">BACKEND LEARNING</div></div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 48-HOUR CHECKLIST -->
+<section id="checklist">
+  <div class="section-label">Section 11 — Act Now</div>
+  <h2 class="section-title">48-Hour<br><span class="accent-green">Non-Negotiable Checklist.</span></h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+    <div>
+      <h4 style="color:var(--red);font-family:var(--font-mono);font-size:11px;letter-spacing:1px;margin-bottom:1rem;text-transform:uppercase">🔴 TODAY (March 16, 2026)</h4>
+      <div class="checklist">
+        <div class="check-item urgent"><input type="checkbox" id="c1"><label for="c1">Deploy Sign Language Detection to Streamlit (2–3 hours)</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c2"><label for="c2">Update GitHub display name to "Ramya K" (with space)</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c3"><label for="c3">Update GitHub bio, add LinkedIn URL in website field</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c4"><label for="c4">Add READMEs to Sign Language + Autonomous Vehicle repos</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c5"><label for="c5">Set LinkedIn Open to Work (all fields as specified)</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c6"><label for="c6">Rewrite LinkedIn headline with CGPA and keywords</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c7"><label for="c7">Solve 2 LeetCode problems today. Streak = Day 1. DO NOT BREAK.</label></div>
+        <div class="check-item urgent"><input type="checkbox" id="c8"><label for="c8">Create Notion tracker: Daily Log / Applications / Contacts</label></div>
+      </div>
+    </div>
+    <div>
+      <h4 style="color:var(--yellow-l);font-family:var(--font-mono);font-size:11px;letter-spacing:1px;margin-bottom:1rem;text-transform:uppercase">🟡 TOMORROW (March 17, 2026)</h4>
+      <div class="checklist">
+        <div class="check-item"><input type="checkbox" id="c9"><label for="c9">Create GitHub Profile README (paste template from earlier)</label></div>
+        <div class="check-item"><input type="checkbox" id="c10"><label for="c10">Write LinkedIn About section (use the template above)</label></div>
+        <div class="check-item"><input type="checkbox" id="c11"><label for="c11">Create LinkedIn banner on Canva (1584×396px, 20 minutes)</label></div>
+        <div class="check-item"><input type="checkbox" id="c12"><label for="c12">Send 5 LinkedIn DMs: 3 alumni at target companies + 2 recruiters</label></div>
+        <div class="check-item"><input type="checkbox" id="c13"><label for="c13">Message 5 classmates for LinkedIn skill endorsements</label></div>
+        <div class="check-item"><input type="checkbox" id="c14"><label for="c14">Apply the resume rewrite — save as PDF, test ATS at jobscan.co</label></div>
+        <div class="check-item"><input type="checkbox" id="c15"><label for="c15">Pin 3 repos on GitHub (Sign-Lang, PolicyNav, DSA-Solutions)</label></div>
+        <div class="check-item"><input type="checkbox" id="c16"><label for="c16">Solve 2 more problems. Streak = 2. The chain begins now.</label></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FINAL VERDICT -->
+<section>
+  <div class="section-label">Section 12 — Final Honest Assessment</div>
+  <h2 class="section-title">The Truth About<br><span class="accent-pink">Your Shot.</span></h2>
+  <div class="verdict-box fade-in">
+    <div class="verdict-title">Ramya — Here Is What I Actually Think.</div>
+    <ul class="verdict-points">
+      <li>
+        <div class="verdict-num">1</div>
+        <div class="verdict-text"><strong>₹20–25 LPA in 6.5 months? YES — genuine 65–75% probability.</strong> Your 9.02 CGPA passes every CGPA filter. Your AI internship puts you ahead of 95% of Tier 3 students. PhonePe, Walmart Global Tech, and Ninjacart are real targets for you — not dreams.</div>
+      </li>
+      <li>
+        <div class="verdict-num">2</div>
+        <div class="verdict-text"><strong>₹25–32 LPA (Amazon/Goldman)? Possible — 35–45% probability.</strong> One referral from an Amazon SDE-1 turns this into a 60%+ probability. Start asking for referrals in Month 3. Don't wait.</div>
+      </li>
+      <li>
+        <div class="verdict-num">3</div>
+        <div class="verdict-text"><strong>The three things that will make or break you:</strong> DSA consistency (Max streak of 1 is not a strategy — it must become 100+). Backend skills (deploy one full-stack project by Month 3). LinkedIn activation (500 sleeping connections = zero value).</div>
+      </li>
+      <li>
+        <div class="verdict-num">4</div>
+        <div class="verdict-text"><strong>What top 1% non-IIT candidates do differently:</strong> They build things that have live URLs. They solve LeetCode like it's their part-time job. They ask for referrals before they feel ready. They post on LinkedIn even when nobody likes their posts. They do mock interviews before they feel "good enough."</div>
+      </li>
+      <li>
+        <div class="verdict-num">5</div>
+        <div class="verdict-text"><strong>You said 10/10 commitment. Hold yourself to that on March 27th when you're tired. On April 15th when a hard problem defeats you. On May 30th when graphs feel impossible.</strong> That consistency — not your CGPA, not your branch, not your college — is the only real differentiator between ₹6L and ₹24L from Jain University.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="quote-banner fade-in" style="margin-top:2rem">
+    <div class="quote-text">"The gap between a Tier 3 college and a ₹25L offer is not intelligence. It is 199 consecutive days of choosing the hard thing over the easy thing."</div>
+    <div class="quote-sub">RAMYA K · JAIN UNIVERSITY → PRODUCT COMPANY · 2027</div>
+  </div>
+</section>
+
+<footer>
+  <div>Built for <span>Ramya K</span> · Jain University CSE AIML · Started <span>March 16, 2026</span></div>
+  <div style="margin-top:.5rem">Target: <span>₹20L–₹40L+ SDE Role</span> · 199 days of execution · Every day counts.</div>
+</footer>
+
+<script>
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Checkbox persistence
+document.querySelectorAll('input[type=checkbox]').forEach(cb => {
+  const key = 'check_' + cb.id;
+  if(localStorage.getItem(key) === 'true') cb.checked = true;
+  cb.addEventListener('change', () => localStorage.setItem(key, cb.checked));
+});
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if(window.scrollY >= s.offsetTop - 80) cur = s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--purple-l)' : '';
+  });
+});
+</script>
+</body>
+</html>
