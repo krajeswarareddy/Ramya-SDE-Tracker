@@ -225,8 +225,8 @@ June 2026     ░░░░░░░░░░░░░░░░░░░░  Perf
 July 2026     ░░░░░░░░░░░░░░░░░░░░  Interview Execution
 August 2026   ░░░░░░░░░░░░░░░░░░░░  🎯 PLACEMENT SEASON
 
-Current LeetCode: 45 / 420  ████░░░░░░░░░░░░░░░░░░░░░░  11%
-DSA Topics Done:  3 / 16    █████░░░░░░░░░░░░░░░░░░░░░  19%
+Current LeetCode: 47 / 420  ████░░░░░░░░░░░░░░░░░░░░░░  11%
+DSA Topics Done:  4 / 16    █████░░░░░░░░░░░░░░░░░░░░░  19%
 Projects Live:    0 / 3     ░░░░░░░░░░░░░░░░░░░░░░░░░░   0% ← fixing this week
 ```
 
