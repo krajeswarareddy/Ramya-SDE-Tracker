@@ -119,6 +119,8 @@ Kanban-style app to track SDE applications across stages — Applied → OA → 
 
 ---
 
+**remove this on 25th april 2026**
+
 ## 🛠️ Tech Stack
 
 <div align="center">
