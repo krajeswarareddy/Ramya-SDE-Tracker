@@ -236,7 +236,7 @@ Projects Live:    0 / 3     ░░░░░░░░░░░░░░░░░�
 
 ## 🌱 Currently Learning
 
-- **DSA:** Trees, Graphs, Dynamic Programming — solving 3 problems/day on LeetCode
+- **DSA:** Trees, Graphs, Dynamic Programming — solving 2-3 problems/day on LeetCode
 - **Backend:** Node.js + Express + REST API design (filling my full-stack gap)
 - **System Design:** URL Shortener, Rate Limiter, Feed Design — Gaurav Sen on YouTube
 - **Internship:** NLP pipeline optimization for PolicyNav at Infosys Springboard
